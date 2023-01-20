@@ -71,12 +71,6 @@ namespace telescope
             Telescope.Log("Telescope event tracking started");
             StartSession();
             StartCoroutine(WaitAndFlush());
-            EditorApplication.pauseStateChanged += OnApplicationPauseTest;
-        }
-
-        private void OnApplicationPauseTest(PauseState state)
-        {
-            OnApplicationPause(state.ToString() == "Paused");
         }
 
         private void OnApplicationPause(bool pause)

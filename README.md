@@ -52,7 +52,7 @@ The SDK uses the flush interval to determine when to send buffered events to ser
 
 ## Session Timeout
 
-The SDK uses the timeout to determine when to end a session. Its default value is 10 minutes. You may need to set a appropriate timeout value that fits your game or application's use case, to avoid ending sessions prematurely.
+The SDK uses the timeout to determine when to end a session. If there has been a period of inactivity, such as the game running in the background or paused for too long, the SDK will end the session. Its default value is 10 minutes and minimum value is 60 seconds. You may need to set a appropriate timeout value that fits your game or application's use case, to avoid ending sessions prematurely.
 
 > 📘 Info
 > 
@@ -94,7 +94,7 @@ The SDK includes a session handling feature that allows it to track and manage t
 
 - **Session Start Event**: When the game is first started, the SDK immediately sends a "Session Start" event to the server. This event includes information about the start of the session, such as the user ID, session ID, and timestamp.
 - **Game Running Event**: The SDK sends a "Game Running" event periodically, such as a heartbeat. This event is used to detect if a session has reached a timeout and therefore needs to end. It also helps to detect if the game has crashed, and end the session accordingly.
-- **Timeout Detection**: The SDK checks session periodically to detect if a session has reached a timeout. If there has been a period of inactivity, such as the game running in the background or not being focused for too long, the SDK will end the session.
+- **Timeout Detection**: The SDK checks session periodically to detect if a session has reached a timeout. If there has been a period of inactivity, such as the game running in the background or paused for too long, the SDK will end the session.
 - **End Session Event**: When the session ends, the SDK sends an "End Session" event to the server. This event includes information about the end of the session, such as the user ID, session ID, and timestamp.
 
 This session handling feature is useful for tracking user engagement and understanding how users interact with the game. By sending session start and end events, the SDK allows you to track session duration and analyze user behavior within the game. The "Game Running" event serves as a heartbeat, allowing you to detect if a session has reached a timeout or if the game has crashed, and end the session accordingly.
