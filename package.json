@@ -1,0 +1,31 @@
+{
+  "name": "com.telescopelabs.unitysdk",
+  "version": "1.0.0",
+  "displayName": "Telescope Labs",
+  "description": "This package",
+  "unity": "2018.1",
+  "keywords": [
+    "telescopelabs",
+    "telescope",
+    "web3",
+    "nft",
+    "analytic",
+    "funnels",
+    "data",
+    "analytics",
+    "events",
+    "segments",
+    "realtime",
+    "abtest",
+    "tracking",
+    "dashboard"
+  ],
+  "author": {
+    "name": "Telescope Labs",
+    "email": "dev@telescopelabs.io",
+    "url": "https://telescopelabs.io"
+  },
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.0.2"
+  }
+}
