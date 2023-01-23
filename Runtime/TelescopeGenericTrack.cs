@@ -7,7 +7,6 @@ namespace telescope
     public class TelescopeGenericTrack
     {
         public string entityName;
-        public string type = "insert";
         public string id
         {
             get => TelescopeBuffer.DistinctId;

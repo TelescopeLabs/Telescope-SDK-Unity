@@ -148,10 +148,11 @@ namespace telescope
             int oldStartIndex = EventStartIndex();
             int newStartIndex = oldStartIndex;
             int dataIndex = oldStartIndex;
-            int maxIndex = EventAutoIncrementingID() - 1;
+            int autoIncrementId = EventAutoIncrementingID();
+            int maxIndex = autoIncrementId - 1;
             while (deletedCount < batchSize && dataIndex <= maxIndex)
             {
-                String trackingKey = "TL_Event" + dataIndex.ToString();
+                string trackingKey = "TL_Event" + dataIndex.ToString();
                 if (PlayerPrefs.HasKey(trackingKey))
                 {
                     PlayerPrefs.DeleteKey(trackingKey);
@@ -161,7 +162,7 @@ namespace telescope
                 dataIndex++;
             }
 
-            if (dataIndex == maxIndex)
+            if (dataIndex > maxIndex && deletedCount == (autoIncrementId - oldStartIndex ) )
             {
                 // We want to avoid maxIndex from getting too high while having large "empty gaps" stored in PlayerPrefs, otherwise
                 // there can be a large number of string concatenation and PlayerPrefs API calls (in extreme cases, 100K+).

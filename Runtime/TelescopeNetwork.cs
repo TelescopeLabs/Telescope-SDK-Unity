@@ -42,8 +42,11 @@ namespace Assets.TelescopeLabs.Scripts
         private static async Task DequeueAndPostRequestTask(List<TelescopeGenericTrack> batch)
         {
             if (!Config.Enabled) return;
+            int resendCounter = 0;
             while (batch.Count > 0)
             {
+                // protect against too much network usage before next interval.
+                if (resendCounter > 1 && batch.Count < Config.BatchSize) return;
                 string body = JsonConvert.SerializeObject(batch);
 
                 byte[] payload = new System.Text.UTF8Encoding().GetBytes(body);
@@ -77,6 +80,7 @@ namespace Assets.TelescopeLabs.Scripts
                 }
                 else
                 {
+                    resendCounter++;
                     TelescopeBuffer.DeleteBatchTrackingData(batch.Count);
                     batch = TelescopeBuffer.DequeueBatchTrackingData(Config.BatchSize);
                     Telescope.Log("\nReceived: " + req.downloadHandler.text);
