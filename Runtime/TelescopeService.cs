@@ -132,6 +132,7 @@ namespace telescope
 
         internal void DoFlush()
         {
+            if (!Config.Enabled) return;
             TelescopeNetwork.SendBatchedTrack(TelescopeBuffer.DequeueBatchTrackingData(Config.BatchSize));
         }
 

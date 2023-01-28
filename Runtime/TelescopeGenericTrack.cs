@@ -36,7 +36,7 @@ namespace telescope
         {
             return new TelescopeGenericTrack()
             {
-                entityName = "session_start"
+                entityName = "$tle_session_start"
             };
         }
 
@@ -44,10 +44,10 @@ namespace telescope
         {
             return new TelescopeGenericTrack()
             {
-                entityName = "game_running",
+                entityName = "$tle_game_running",
                 value = new Dictionary<string, object>()
                 {
-                    { "$tl_game_is_focused", isFocused }
+                    { "$tle_game_is_focused", isFocused }
                 }
             };
         }
@@ -56,7 +56,7 @@ namespace telescope
         {
             return new TelescopeGenericTrack()
             {
-                entityName = "client_device"
+                entityName = "$tle_client_device"
             };
         }
 
@@ -64,7 +64,7 @@ namespace telescope
         {
             return new TelescopeGenericTrack()
             {
-                entityName = "session_end",
+                entityName = "$tle_session_end",
                 value = Metadata.GetEndSessionMetadata(timeInSecond)
             };
         }

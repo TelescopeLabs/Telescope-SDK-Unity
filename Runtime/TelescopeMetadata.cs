@@ -52,28 +52,29 @@ namespace telescope
         {
             Dictionary<string, object> eventMetadata = new()
                 {
-                    {"$tl_event_id", Convert.ToString(_random.Next(0, Int32.MaxValue), 16)},
-                    {"$tl_session_id", _sessionID},
-                    {"$tl_session_seq_id", _eventCounter},
-                    {"$tl_session_start_sec", _sessionStartEpoch},
-                    {"$tl_lib", "unity"},
-                    {"$tl_lib_version", Telescope.TelescopeUnitySDKVersion },
-                    {"$tl_client_version", _clientVersion },
-                    {"$tl_project_id", _projectId },
-                    {"$tl_game_bundle_id", _gameBundleID },
-                    {"$tl_platform", _platform },
-                    {"$tl_build_guuid", _buildGuuid },
-                    {"$tl_idfv", _idfv },
-                    {"$tl_locale", Locale.AnalyticsRegionLanguageCode() },
-                    {"$tl_eventtime", DateTime.UtcNow.ToString("o", CultureInfo.InvariantCulture) },
+                    {"$tlv_user_id", TelescopeBuffer.DistinctId },
+                    {"$tlv_event_id", Convert.ToString(_random.Next(0, Int32.MaxValue), 16)},
+                    {"$tlv_session_id", _sessionID},
+                    {"$tlv_session_seq_id", _eventCounter},
+                    {"$tlv_session_start_sec", _sessionStartEpoch},
+                    {"$tlv_lib", "unity"},
+                    {"$tlv_lib_version", Telescope.TelescopeUnitySDKVersion },
+                    {"$tlv_client_version", _clientVersion },
+                    {"$tlv_project_id", _projectId },
+                    {"$tlv_game_bundle_id", _gameBundleID },
+                    {"$tlv_platform", _platform },
+                    {"$tlv_build_guuid", _buildGuuid },
+                    {"$tlv_idfv", _idfv },
+                    {"$tlv_locale", Locale.AnalyticsRegionLanguageCode() },
+                    {"$tlv_eventtime", DateTime.UtcNow.ToString("o", CultureInfo.InvariantCulture) },
 
                     // -- these can be changed while game running
-                    {"$tl_screen_width", Screen.width },
-                    {"$tl_screen_height", Screen.height },
-                    {"$tl_screen_dpi", Screen.dpi },
-                    {"$tl_device_wifi", Application.internetReachability == UnityEngine.NetworkReachability.ReachableViaLocalAreaNetwork},
-                    {"$tl_device_radio", Util.GetRadio()},
-                    {"$tl_device_volume", DeviceVolumeProvider.GetDeviceVolume() },
+                    {"$tlv_screen_width", Screen.width },
+                    {"$tlv_screen_height", Screen.height },
+                    {"$tlv_screen_dpi", Screen.dpi },
+                    {"$tlv_device_wifi", Application.internetReachability == UnityEngine.NetworkReachability.ReachableViaLocalAreaNetwork},
+                    {"$tlv_device_radio", Util.GetRadio()},
+                    {"$tlv_device_volume", DeviceVolumeProvider.GetDeviceVolume() },
                 };
             _eventCounter++;
             return eventMetadata;
@@ -84,22 +85,22 @@ namespace telescope
             int _sessionEndEpoch = timeInSecond ?? (int)Util.CurrentTimeInSeconds();
             return new Dictionary<string, object>()
                 {
-                    { "$tl_session_end_sec", _sessionEndEpoch },
-                    { "$tl_session_duration", _sessionEndEpoch - _sessionStartEpoch }
+                    { "$tlv_session_end_sec", _sessionEndEpoch },
+                    { "$tlv_session_duration", _sessionEndEpoch - _sessionStartEpoch }
                 };
         }
 
         internal static Dictionary<string, object> GetClientDeviceMetaData()
         {
             return new Dictionary<string, object> {
-                {"$tl_operating_system", _operatingSystem},
-                {"$tl_operating_system_family", _operatingSystemFamily},
-                {"$tl_is_debug_device", _isDebugDevice},
-                {"$tl_device_model", _deviceModel},
-                {"$tl_processor_type", _processorType},
-                {"$tl_graphics_device_name", _graphicsDeviceName},
-                {"$tl_processor_count", _processorCount},
-                {"$tl_system_memory_size", _systemMemorySize}
+                {"$tlv_operating_system", _operatingSystem},
+                {"$tlv_operating_system_family", _operatingSystemFamily},
+                {"$tlv_is_debug_device", _isDebugDevice},
+                {"$tlv_device_model", _deviceModel},
+                {"$tlv_processor_type", _processorType},
+                {"$tlv_graphics_device_name", _graphicsDeviceName},
+                {"$tlv_processor_count", _processorCount},
+                {"$tlv_system_memory_size", _systemMemorySize}
             };
         }
     }

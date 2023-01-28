@@ -12,15 +12,18 @@ namespace telescope
 
         public static void Track(TelescopeGenericTrack te)
         {
+            if (!Config.Enabled) return;
             TelescopeNetwork.Track(te);
         }
         public static void Track(List<TelescopeGenericTrack> tes)
         {
+            if (!Config.Enabled) return;
             TelescopeNetwork.Track(tes);
         }
 
         public static void Track(string entityName, Dictionary<string, object> value)
         {
+            if (!Config.Enabled) return;
             TelescopeNetwork.Track(new TelescopeGenericTrack(entityName, value));
         }
 
