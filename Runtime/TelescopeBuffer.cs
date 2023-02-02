@@ -49,23 +49,22 @@ namespace telescope
         internal static void EnqueueTrackingData(TelescopeGenericTrack data)
         {
             data.value = Telescope.MergeValues(data.value, Metadata.GetEventMetadata());
-            EnqueueTrackingDataCore(data);
+            int eventId = EventAutoIncrementingID();
+            string trackingKey = "TL_Event" + eventId.ToString();
+            PlayerPrefs.SetString(trackingKey, JsonConvert.SerializeObject(data));
+            IncreaseTrackingDataID();
         }
 
         internal static void EnqueueTrackingData(List<TelescopeGenericTrack> data)
         {
             foreach (TelescopeGenericTrack te in data)
+            {
                 te.value = Telescope.MergeValues(te.value, Metadata.GetEventMetadata());
-            EnqueueTrackingDataCore(data);
-        }
-
-        private static void EnqueueTrackingDataCore<T>(T data)
-        {
-            int eventId = EventAutoIncrementingID();
-            string trackingKey = "TL_Event" + eventId.ToString();
-            //data["$tl_pref_event_id"] = trackingKey;
-            PlayerPrefs.SetString(trackingKey, JsonConvert.SerializeObject(data));
-            IncreaseTrackingDataID();
+                int eventId = EventAutoIncrementingID();
+                string trackingKey = "TL_Event" + eventId.ToString();
+                PlayerPrefs.SetString(trackingKey, JsonConvert.SerializeObject(te));
+                IncreaseTrackingDataID();
+            }
         }
 
         internal static int EventAutoIncrementingID()
