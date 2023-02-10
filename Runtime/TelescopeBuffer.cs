@@ -46,20 +46,22 @@ namespace telescope
         // For performance, we can store the lowest unsent event ID to prevent searching from 0.
         private const string EventStartIndexName = "TL_EventStartIndex";
 
-        internal static void EnqueueTrackingData(TelescopeGenericTrack data)
+        internal static void EnqueueTrackingData(TelescopeGenericTrack data, bool addMetadata = true)
         {
-            data.value = Telescope.MergeValues(data.value, Metadata.GetEventMetadata());
+            if (addMetadata)
+                data.value = Telescope.MergeValues(data.value, Metadata.GetEventMetadata());
             int eventId = EventAutoIncrementingID();
             string trackingKey = "TL_Event" + eventId.ToString();
             PlayerPrefs.SetString(trackingKey, JsonConvert.SerializeObject(data));
             IncreaseTrackingDataID();
         }
 
-        internal static void EnqueueTrackingData(List<TelescopeGenericTrack> data)
+        internal static void EnqueueTrackingData(List<TelescopeGenericTrack> data, bool addMetadata = true)
         {
             foreach (TelescopeGenericTrack te in data)
             {
-                te.value = Telescope.MergeValues(te.value, Metadata.GetEventMetadata());
+                if (addMetadata)
+                    te.value = Telescope.MergeValues(te.value, Metadata.GetEventMetadata());
                 int eventId = EventAutoIncrementingID();
                 string trackingKey = "TL_Event" + eventId.ToString();
                 PlayerPrefs.SetString(trackingKey, JsonConvert.SerializeObject(te));
@@ -111,6 +113,7 @@ namespace telescope
                             var data = JsonConvert.DeserializeObject<TelescopeGenericTrack>(strData);
                             batch.Add(data);
                         }
+                        DeleteBatchTrackingData(1);
                     }
                     catch (Exception e)
                     {

@@ -10,20 +10,23 @@ namespace telescope
     {
         internal const string TelescopeUnitySDKVersion = "1";
 
-        public static void Track(TelescopeGenericTrack te)
+        public static void Track(TelescopeGenericTrack te, bool manualMapping = false)
         {
             if (!Config.Enabled) return;
+            if (manualMapping) te.value.Add("$tlv_custom_event_map", manualMapping);
             TelescopeNetwork.Track(te);
         }
-        public static void Track(List<TelescopeGenericTrack> tes)
+        public static void Track(List<TelescopeGenericTrack> tes, bool manualMapping = false)
         {
             if (!Config.Enabled) return;
+            foreach(TelescopeGenericTrack te in tes) te.value.Add("$tlv_custom_event_map", manualMapping);
             TelescopeNetwork.Track(tes);
         }
 
-        public static void Track(string entityName, Dictionary<string, object> value)
+        public static void Track(string entityName, Dictionary<string, object> value, bool manualMapping = false)
         {
             if (!Config.Enabled) return;
+            if (manualMapping) value.Add("$tlv_custom_event_map", manualMapping);
             TelescopeNetwork.Track(new TelescopeGenericTrack(entityName, value));
         }
 

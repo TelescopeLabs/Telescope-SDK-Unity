@@ -50,6 +50,7 @@ namespace Assets.TelescopeLabs.Scripts
 
             while (batch.Count > 0)
             {
+
                 string body = JsonConvert.SerializeObject(batch);
 
                 byte[] payload = new System.Text.UTF8Encoding().GetBytes(body);
@@ -82,6 +83,7 @@ namespace Assets.TelescopeLabs.Scripts
                     retryIn = Math.Min(retryIn, 10 * 60); // limit 10 min
                     _retryTime = DateTime.Now;
                     _retryTime = _retryTime.AddSeconds(retryIn);
+                    TelescopeBuffer.EnqueueTrackingData(batch, false);
                     Telescope.Log("Retrying request in " + retryIn + " seconds (retryCount=" + _retryCount + ")");
                     req.Dispose();
                     return;
@@ -89,7 +91,6 @@ namespace Assets.TelescopeLabs.Scripts
                 else
                 {
                     _retryCount = 0;
-                    TelescopeBuffer.DeleteBatchTrackingData(batch.Count);
                     batch = TelescopeBuffer.DequeueBatchTrackingData(Config.BatchSize);
                     Telescope.Log("\nReceived: " + req.downloadHandler.text);
                 }

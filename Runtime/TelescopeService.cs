@@ -1,7 +1,6 @@
 using Assets.TelescopeLabs.Scripts;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 namespace telescope

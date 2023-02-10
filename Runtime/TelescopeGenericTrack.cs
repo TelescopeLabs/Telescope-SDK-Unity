@@ -47,7 +47,7 @@ namespace telescope
                 entityName = "$tle_game_running",
                 value = new Dictionary<string, object>()
                 {
-                    { "$tle_game_is_focused", isFocused }
+                    { "$tlv_game_is_focused", isFocused }
                 }
             };
         }
