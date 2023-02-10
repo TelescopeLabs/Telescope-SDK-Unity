@@ -13,20 +13,36 @@ namespace telescope
         public static void Track(TelescopeGenericTrack te, bool manualMapping = false)
         {
             if (!Config.Enabled) return;
-            if (manualMapping) te.value.Add("$tlv_custom_event_map", manualMapping);
+            if (manualMapping)
+            {
+                te.value.Add("$tlv_custom_event_map", manualMapping);
+                te.value.Add("eventName", te.entityName);
+                te.entityName = "$tle_custom_events";
+            }
             TelescopeNetwork.Track(te);
         }
+
         public static void Track(List<TelescopeGenericTrack> tes, bool manualMapping = false)
         {
             if (!Config.Enabled) return;
-            foreach(TelescopeGenericTrack te in tes) te.value.Add("$tlv_custom_event_map", manualMapping);
+            foreach (TelescopeGenericTrack te in tes)
+            {
+                te.value.Add("$tlv_custom_event_map", manualMapping);
+                te.value.Add("eventName", te.entityName);
+                te.entityName = "$tle_custom_events";
+            }
             TelescopeNetwork.Track(tes);
         }
 
         public static void Track(string entityName, Dictionary<string, object> value, bool manualMapping = false)
         {
             if (!Config.Enabled) return;
-            if (manualMapping) value.Add("$tlv_custom_event_map", manualMapping);
+            if (manualMapping)
+            {
+                value.Add("$tlv_custom_event_map", manualMapping);
+                value.Add("eventName", entityName);
+                entityName = "$tle_custom_events";
+            }
             TelescopeNetwork.Track(new TelescopeGenericTrack(entityName, value));
         }
 
