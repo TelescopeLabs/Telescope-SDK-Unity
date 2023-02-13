@@ -1,7 +1,7 @@
 
 /*
 * --- Telescope Labs Auto Generated Code ---
-* Date:Fri, 27 Jan 2023 08:48:30 GMT
+* Date:Mon, 13 Feb 2023 09:40:45 GMT
 * Please do not edit this code. Otherwise sdk may not work as expected.
 */
 
@@ -54,7 +54,7 @@ namespace telescope
             Track(new TelescopeGenericTrack("$tle_ad_impressions", values));
         }
 
-        public static void CustomOffChainEvents(int cheater, string eventName, int tester, int? customBooleanProperty1 = null, double? customNumberProperty1 = null, double? customNumberProperty2 = null, string customStringProperty1 = null, string customStringProperty2 = null, string customStringProperty3 = null)
+        public static void CustomOffChainEvents(string eventName, int? cheater = null, int? customBooleanProperty1 = null, double? customNumberProperty1 = null, double? customNumberProperty2 = null, string customStringProperty1 = null, string customStringProperty2 = null, string customStringProperty3 = null, int? tester = null)
         {
             var values = new Dictionary<string, object>() {
                 { "$tlv_schema_version", 1},
